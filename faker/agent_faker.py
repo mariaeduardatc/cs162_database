@@ -8,7 +8,7 @@ from databases.agent_db import Agent
 from faker import Faker
 import random
 
-def createAgent(num_agents, num_offices):
+def create_agent(num_agents, num_offices):
     for _ in range(num_agents):
         fake = Faker()
         agent = Agent(**{

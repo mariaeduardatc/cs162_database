@@ -1,18 +1,25 @@
+import random
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker 
 from sqlalchemy.ext.declarative import declarative_base
 
-from databases.buyer_db import Buyer
+from databases.house_db import House
 
 
 from faker import Faker
 
-def create_buyer(num_buyers):
-    for _ in range(num_buyers):
+def create_house(holder, num_agents):
+    for i in range(holder):
         fake = Faker()
-        buyer = Buyer(**{
+        house = House(**{
             "name": fake.name(),
-            "email": fake.email()
+            "bedrooms": fake.integer(),
+            "bathrooms": fake.integer(),
+            "price": fake.integer(),
+            "zipcode": fake.integer(),
+            "date_listing": fake.integer(),
+            "sold": False,
+            "seller_id": random.choice([i + 1 for i in range(num_agents)])
             })
         
         # to create the db
@@ -25,5 +32,5 @@ def create_buyer(num_buyers):
 
         Session = sessionmaker(bind=engine)
         session = Session()
-        session.add(buyer)
+        session.add(house)
         session.commit()
