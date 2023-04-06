@@ -1,29 +1,22 @@
-import random
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker 
 from sqlalchemy.ext.declarative import declarative_base
 
-from databases.house_db import House
+from databases.office_db import Office
 
 
 from faker import Faker
 
-def create_house(holder, num_agents):
+def create_house(holder):
     for i in range(holder):
         fake = Faker()
-        house = House(**{
+        office = Office(**{
             "name": fake.name(),
-            "bedrooms": fake.integer(),
-            "bathrooms": fake.integer(),
-            "price": fake.integer(),
-            "zipcode": fake.integer(),
-            "date_listing": fake.integer(),
-            "sold": False,
-            "seller_id": random.choice([i + 1 for i in range(num_agents)])
+            "phone": fake.integer()
             })
         
         # to create the db
-        engine = create_engine('sqlite:///house.db')
+        engine = create_engine('sqlite:///office.db')
         engine.connect() 
 
         Base = declarative_base() 
@@ -32,5 +25,5 @@ def create_house(holder, num_agents):
 
         Session = sessionmaker(bind=engine)
         session = Session()
-        session.add(house)
+        session.add(office)
         session.commit()
