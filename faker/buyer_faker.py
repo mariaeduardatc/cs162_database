@@ -2,24 +2,21 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker 
 from sqlalchemy.ext.declarative import declarative_base
 
-from databases.agent_db import Agent
+from databases.buyer_db import Buyer
 
 
 from faker import Faker
-import random
 
-def createAgent(num_agents, num_offices):
-    for _ in range(num_agents):
+def createBuyer(num_buyers):
+    for _ in range(num_buyers):
         fake = Faker()
-        agent = Agent(**{
+        buyer = Buyer(**{
             "name": fake.name(),
-            "email": fake.email(),
-            "sales": fake.integer(), # change this
-            "office_id": random.choice([i + 1 for i in range(num_offices)])
+            "email": fake.email()
             })
         
         # to create the db
-        engine = create_engine('sqlite:///agent.db')
+        engine = create_engine('sqlite:///buyer.db')
         engine.connect() 
 
         Base = declarative_base() 
@@ -28,5 +25,5 @@ def createAgent(num_agents, num_offices):
 
         Session = sessionmaker(bind=engine)
         session = Session()
-        session.add(agent)
+        session.add(buyer)
         session.commit()
