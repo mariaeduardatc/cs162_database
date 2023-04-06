@@ -3,6 +3,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker 
 from sqlalchemy.dialects.mysql import VARCHAR
 
+from databases.seller_db import Seller
+
 # to create the db
 engine = create_engine('sqlite:///house.db')
 engine.connect() 
@@ -20,8 +22,18 @@ class House(Base):
 	price = Column(Integer)
 	zipcode = Column(Integer)
 	date_listing = Column(Date)
-	status = Column(Text) # "SOLD" or "SELLING"
+	status = Column(VARCHAR(11)) # "SOLD" or "SELLING"
+	seller_id = Column(Integer, ForeignKey=('seller.id'))
+
+	seller = relationship(Seller)
+	
 
     # CHANGE THIS LATER
 	def __repr__(self):
 		return "<House(id={0}, bedrooms={1}, email={2}, phone={3})>".format(self.id, self.name, self.email, self.phone)
+	
+
+Base.metadata.create_all(bind=engine) 
+
+Session = sessionmaker(bind=engine)
+session = Session()
