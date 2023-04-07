@@ -8,14 +8,14 @@ from databases.agent_db import Agent
 from faker import Faker
 import random
 
-def create_agent(num_agents, num_offices):
-    for _ in range(num_agents):
+def create_agent(agents_num, office_num):
+    for _ in range(agents_num):
         fake = Faker()
         agent = Agent(**{
             "name": fake.name(),
             "email": fake.email(),
             "sales": fake.integer(), # change this
-            "office_id": random.choice([i + 1 for i in range(num_offices)])
+            "office_id": random.choice([i + 1 for i in range(office_num)])
             })
         
         # to create the db

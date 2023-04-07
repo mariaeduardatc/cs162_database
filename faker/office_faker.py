@@ -7,11 +7,11 @@ from databases.office_db import Office
 
 from faker import Faker
 
-def create_office(holder):
-    for i in range(holder):
+def create_office(office_num):
+    for i in range(office_num):
         fake = Faker()
         office = Office(**{
-            "name": fake.name(),
+            "name": fake.company(),
             "phone": fake.integer()
             })
         

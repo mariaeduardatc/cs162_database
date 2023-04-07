@@ -7,8 +7,8 @@ from databases.buyer_db import Buyer
 
 from faker import Faker
 
-def create_buyer(num_buyers):
-    for _ in range(num_buyers):
+def create_buyer(buyers_num):
+    for _ in range(buyers_num):
         fake = Faker()
         buyer = Buyer(**{
             "name": fake.name(),

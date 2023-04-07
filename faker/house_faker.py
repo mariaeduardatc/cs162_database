@@ -8,8 +8,8 @@ from databases.house_db import House
 
 from faker import Faker
 
-def create_house(holder, num_agents):
-    for i in range(holder):
+def create_house(house_num, agents_num):
+    for i in range(house_num):
         fake = Faker()
         house = House(**{
             "name": fake.name(),
@@ -19,7 +19,7 @@ def create_house(holder, num_agents):
             "zipcode": fake.integer(),
             "date_listing": fake.integer(),
             "sold": False,
-            "seller_id": random.choice([i + 1 for i in range(num_agents)])
+            "seller_id": random.choice([i + 1 for i in range(agents_num)])
             })
         
         # to create the db

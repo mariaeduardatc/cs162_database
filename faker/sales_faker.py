@@ -9,15 +9,15 @@ from databases.sales_db import Sales
 
 from faker import Faker
 
-def create_sales(holder, house_num, buyer_num, agent_num):
-    for i in range(holder):
+def create_sales(sales_num, house_num, buyers_num, agents_num):
+    for i in range(sales_num):
         fake = Faker()
         house_id = random.choice([i + 1 for i in range(house_num)])
         sales = Sales(**{
             "name": fake.name(),
             "house_id": house_id,
-            "buyer_id": random.choice([i + 1 for i in range(buyer_num)]),
-            "agent_id": random.choice([i + 1 for i in range(agent_num)]),
+            "buyer_id": random.choice([i + 1 for i in range(buyers_num)]),
+            "agent_id": random.choice([i + 1 for i in range(agents_num)]),
             "price":  session.query(House).filter_by(id=house_id).first().price,
             "date": fake.date()
             })
