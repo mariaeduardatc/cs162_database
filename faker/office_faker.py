@@ -7,7 +7,7 @@ from databases.office_db import Office
 
 from faker import Faker
 
-def create_house(holder):
+def create_office(holder):
     for i in range(holder):
         fake = Faker()
         office = Office(**{

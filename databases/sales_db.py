@@ -1,15 +1,11 @@
-from sqlalchemy import Date, create_engine, Column,  Integer
+from sqlalchemy import Date, Column,  Integer
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship, sessionmaker 
-from sqlalchemy.dialects.mysql import VARCHAR
-from databases.agent_db import Agent
+from sqlalchemy.orm import relationship
 
+from databases.agent_db import Agent
 from databases.house_db import House
 from databases.buyer_db import Buyer
 
-# to create the db
-engine = create_engine('sqlite:///sales.db')
-engine.connect() 
 
 Base = declarative_base() 
 
@@ -32,4 +28,4 @@ class Sales(Base):
 
 
 	def __repr__(self):
-		return "<Sales(id={0}, name={1}, email={2}, phone={3})>".format(self.id, self.name, self.email, self.phone)
+		return "<Sales(id={0}, house_id={1}, buyer_id={2}, agent_id={3}, price={4}, date={6})>".format(self.id, self.house_id, self.buyer_id, self.agent_id, self.price, self.date)
