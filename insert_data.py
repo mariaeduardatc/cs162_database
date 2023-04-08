@@ -1,5 +1,7 @@
 from requests import session
 from databases.comissions_db import Comissions
+from databases.house_db import House
+from databases.sales_db import Sales
 
 from faker.agent_faker import create_agent
 from faker.buyer_faker import create_buyer
@@ -25,10 +27,11 @@ create_office(office_num)
 create_sales(sales_num, house_num, buyers_num, agents_num)
 create_seller(seller_num)
 
+
 # populating the comissions' db
 for sale in sales_num:
-    id_agent = session.query(sale).filter_by(id=sale.id).first().agent_id
-    sale_price = session.query(sale).filter_by(id=sale.id).first().price
+    id_agent = session.query(Sales).filter_by(id=sale.id).first().agent_id
+    sale_price = session.query(Sales).filter_by(id=sale.id).first().price
 
     if sale_price <= 100000:
         comission = sale_price*0.1
@@ -45,3 +48,8 @@ for sale in sales_num:
     
     session.add(comission_db)
     session.commit()
+
+    # changing status of house
+    id_house = session.query(Sales).filter_by(id=sale.id).first().house_id
+
+    change_status = session.query(House).filter_by(id=id_house).status
