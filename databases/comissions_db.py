@@ -19,7 +19,7 @@ class Comissions(Base):
 	comission = Column(Float)
 	month =  Column(DateTime)
 
-	agent = relationship(Agent)
+	agent = relationship('Agent')
 	
 	def __repr__(self):
 		return "<Comissions(id={0}, agent_id={1}, comission={2})>".format(self.id, self.agent_id, self.comission)

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Text, Integer
+from sqlalchemy import Column, ForeignKey, Text, Integer
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from databases.office_db import Office
@@ -14,9 +14,9 @@ class Agent(Base):
 	name = Column(Text)
 	email = Column(Text)
 	sales = Column(Integer)
-	office_id = Column(Integer, ForeignKey=('office.id'))
+	office_id = Column(Integer, ForeignKey('office.id'))
 
-	office = relationship(Office)
+	office = relationship('Office')
 
 
 	def __repr__(self):

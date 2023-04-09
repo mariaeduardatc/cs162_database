@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Date, Column, Integer
+from sqlalchemy import Boolean, Date, Column, ForeignKey, Integer
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -20,9 +20,9 @@ class House(Base):
 	zipcode = Column(Integer)
 	date_listing = Column(Date)
 	sold = Column(Boolean) # "SOLD" or "SELLING"
-	seller_id = Column(Integer, ForeignKey=('seller.id'))
+	seller_id = Column(Integer, ForeignKey('seller.id'))
 
-	seller = relationship(Seller)
+	seller = relationship('Seller')
 	
 
     # CHANGE THIS LATER

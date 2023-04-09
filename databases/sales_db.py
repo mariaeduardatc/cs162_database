@@ -1,11 +1,7 @@
-from sqlalchemy import Date, Column,  Integer
+from sqlalchemy import Date, Column, ForeignKey,  Integer
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
-from databases.agent_db import Agent
-from databases.house_db import House
-from databases.buyer_db import Buyer
-from databases.office_db import Office
 
 
 Base = declarative_base() 
@@ -15,19 +11,19 @@ Base = declarative_base()
 class Sales(Base):
 	__tablename__ = 'sales'
 	id = Column(Integer, primary_key = True)
-	house_id = Column(Integer, ForeignKey={'house.id'})
-	buyer_id = Column(Integer, ForeignKey={'buyer.id'})
-	agent_id = Column(Integer, ForeignKey={'agent.id'})
-	price = Column(Integer, ForeignKey={'house.price'})
+	house_id = Column(Integer, ForeignKey('house.id'))
+	buyer_id = Column(Integer, ForeignKey('buyer.id'))
+	agent_id = Column(Integer, ForeignKey('agent.id'))
+	price = Column(Integer, ForeignKey('house.price'))
 	date = Column(Date)
-	office_id = Column(Integer, ForeignKey={'office.id'})
+	office_id = Column(Integer, ForeignKey('office.id'))
 	
     # GATHER INFO ON COMISSION AND CHANGE HOUSE STATUS IG IT DOES NOT HAPPEN HERE
 
-	house = relationship(House)
-	buyer = relationship(Buyer)
-	agent = relationship(Agent)
-	office = relationship(Office)
+	house = relationship('House')
+	buyer = relationship('Buyer')
+	agent = relationship('Agent')
+	office = relationship('Office')
 
 
 	def __repr__(self):
