@@ -11,6 +11,7 @@ class Office(Base):
 	id = Column(Integer, primary_key = True)
 	name = Column(Text)
 	phone = Column(Integer)
+	sales_num = Column(Integer)
 
 	def __repr__(self):
-		return "<Office(id={0}, name={1}, phone={2})>".format(self.id, self.name, self.phone)
+		return "<Office(id={0}, name={1}, phone={2}, sales_num{3})>".format(self.id, self.name, self.phone, self.sales_num)

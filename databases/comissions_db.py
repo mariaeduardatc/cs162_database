@@ -1,5 +1,4 @@
-from sqlalchemy import Column, Float, ForeignKey, Integer, create_engine
-from sqlalchemy.orm import sessionmaker 
+from sqlalchemy import Column, DateTime, Float, ForeignKey, Integer, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -18,13 +17,9 @@ class Comissions(Base):
 	id = Column(Integer, primary_key = True)
 	agent_id = Column(Integer, ForeignKey('agent.id'))
 	comission = Column(Float)
+	month =  Column(DateTime)
 
 	agent = relationship(Agent)
 	
 	def __repr__(self):
 		return "<Comissions(id={0}, agent_id={1}, comission={2})>".format(self.id, self.agent_id, self.comission)
-
-Base.metadata.create_all(bind=engine) 
-
-Session = sessionmaker(bind=engine)
-session = Session()
