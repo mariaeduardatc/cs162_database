@@ -20,9 +20,9 @@ def create_house(house_num, agents_num):
         fake = Faker()
         house = House(**{
             "name": fake.name(),
-            "bedrooms": fake.random_int(min=1, max=10),
-            "bathrooms": fake.random_int(min=1, max=5),
-            "price": fake.random_int(min=100000, max=1000000),
+            "bedrooms": fake.random_int(min=1, max=50),
+            "bathrooms": fake.random_int(min=1, max=50),
+            "price": fake.random_int(min=1000, max=1000000000),
             "zipcode": fake.random_int(min=10000, max=99999),
             "date_listing": fake.date_this_decade(),
             "sold": False,

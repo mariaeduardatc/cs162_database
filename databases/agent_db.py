@@ -1,7 +1,6 @@
 from sqlalchemy import Column, ForeignKey, Text, Integer
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from databases.office_db import Office
 
 
 Base = declarative_base() 
@@ -16,7 +15,8 @@ class Agent(Base):
 	sales = Column(Integer)
 	office_id = Column(Integer, ForeignKey('office.id'))
 
-	office = relationship('Office')
+	offices = relationship('Office', back_populates='agent')
+	comissions = relationship('Comissions', back_populates='agent')
 
 
 	def __repr__(self):

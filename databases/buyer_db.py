@@ -4,7 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base() 
 
-# creating the Seller db
+# creating the Buyer db
 class Buyer(Base):
 	__tablename__ = 'buyer'
 	id = Column(Integer, primary_key = True)

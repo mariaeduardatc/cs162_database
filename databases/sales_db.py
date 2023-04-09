@@ -17,13 +17,11 @@ class Sales(Base):
 	price = Column(Integer, ForeignKey('house.price'))
 	date = Column(Date)
 	office_id = Column(Integer, ForeignKey('office.id'))
-	
-    # GATHER INFO ON COMISSION AND CHANGE HOUSE STATUS IG IT DOES NOT HAPPEN HERE
 
-	house = relationship('House')
-	buyer = relationship('Buyer')
-	agent = relationship('Agent')
-	office = relationship('Office')
+	houses = relationship('House', back_populates='sales')
+	buyers = relationship('Buyer', back_populates='sales')
+	agents = relationship('Agent', back_populates='sales')
+	offices = relationship('Office', back_populates='sales')
 
 
 	def __repr__(self):
