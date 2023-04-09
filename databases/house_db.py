@@ -1,7 +1,6 @@
-from sqlalchemy import Date, Column, Integer
+from sqlalchemy import Boolean, Date, Column, Integer
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from sqlalchemy.dialects.mysql import VARCHAR
 
 from databases.seller_db import Seller
 
@@ -20,7 +19,7 @@ class House(Base):
 	price = Column(Integer)
 	zipcode = Column(Integer)
 	date_listing = Column(Date)
-	sold = Column(bool) # "SOLD" or "SELLING"
+	sold = Column(Boolean) # "SOLD" or "SELLING"
 	seller_id = Column(Integer, ForeignKey=('seller.id'))
 
 	seller = relationship(Seller)

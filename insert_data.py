@@ -25,10 +25,3 @@ create_house(house_num, agents_num)
 create_office(office_num)
 create_sales(sales_num, house_num, buyers_num, agents_num)
 create_seller(seller_num)
-
-
-for sale in sales_num:
-    # changing status of house COME BACK HERE
-    id_house = Sales.query.filter_by(id=sale.id).first().house_id
-
-    change_status = House.query.filter_by(id=id_house).status

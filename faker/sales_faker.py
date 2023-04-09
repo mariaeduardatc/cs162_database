@@ -2,8 +2,8 @@ import random
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker 
 from sqlalchemy.ext.declarative import declarative_base
-from databases.house_db import House
 
+from databases.house_db import House
 from databases.sales_db import Sales
 
 
@@ -21,6 +21,10 @@ def create_sales(sales_num, house_num, buyers_num, agents_num):
             "price":  session.query(House).filter_by(id=house_id).first().price,
             "date": fake.date()
             })
+        
+        # changing status of the sold house
+        house_sold = House.query.filter_by(id=house_id).first()
+        house_sold.sold = True
         
         # to create the db
         engine = create_engine('sqlite:///sales.db')
