@@ -6,15 +6,16 @@ from databases.seller_db import Seller
 
 from faker import Faker
 
+
+engine = create_engine('sqlite:///seller.db')
+Base = declarative_base() 
+
+Base.metadata.create_all(bind=engine) 
+
+Session = sessionmaker(bind=engine)
+session = Session()
+
 def create_seller(seller_num):
-    engine = create_engine('sqlite:///seller.db')
-    Base = declarative_base() 
-
-    Base.metadata.create_all(bind=engine) 
-
-    Session = sessionmaker(bind=engine)
-    session = Session()
-
     for i in range(seller_num):
         fake = Faker()
         seller = Seller(**{

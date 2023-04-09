@@ -6,7 +6,7 @@ from faker_data.sales_faker import create_sales
 from faker_data.seller_faker import create_seller
 
 # variables
-buyers_num = 500
+buyers_num = 50
 house_num = buyers_num//3
 office_num = house_num//5
 agents_num = office_num * 4

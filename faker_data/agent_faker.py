@@ -7,16 +7,16 @@ from databases.agent_db import Agent
 from faker import Faker
 import random
 
+# to create the db
+engine = create_engine('sqlite:///agent.db')
+Base = declarative_base() 
+
+Base.metadata.create_all(bind=engine) 
+
+Session = sessionmaker(bind=engine)
+session = Session()
+
 def create_agent(agents_num, office_num):
-    # to create the db
-    engine = create_engine('sqlite:///agent.db')
-    Base = declarative_base() 
-
-    Base.metadata.create_all(bind=engine) 
-
-    Session = sessionmaker(bind=engine)
-    session = Session()
-
     for _ in range(agents_num):
         fake = Faker()
         agent = Agent(**{
