@@ -1,20 +1,7 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker 
-from sqlalchemy.ext.declarative import declarative_base
-
+from extensions import session
 from databases.agent_db import Agent
-
 from faker import Faker
 import random
-
-# to create the db
-engine = create_engine('sqlite:///agent.db')
-Base = declarative_base() 
-
-Base.metadata.create_all(bind=engine) 
-
-Session = sessionmaker(bind=engine)
-session = Session()
 
 def create_agent(agents_num, office_num):
     for _ in range(agents_num):

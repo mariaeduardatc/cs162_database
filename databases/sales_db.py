@@ -1,11 +1,7 @@
 from sqlalchemy import Date, Column, ForeignKey,  Integer
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
-
-
-Base = declarative_base() 
-
+from extensions import Base
 
 # creating the Agent db
 class Sales(Base):

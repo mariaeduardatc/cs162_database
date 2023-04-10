@@ -1,9 +1,8 @@
-from sqlalchemy import Boolean, Date, Column, ForeignKey, Integer, String 
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Boolean, Date, Column, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 
+from extensions import Base
 
-Base = declarative_base() 
 
 # creating the House db
 class House(Base):

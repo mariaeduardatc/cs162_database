@@ -1,12 +1,7 @@
-from sqlalchemy import Column, DateTime, Float, ForeignKey, Integer, create_engine
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, DateTime, Float, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 
-
-# to create the db
-engine = create_engine('sqlite:///comissions.db')
-Base = declarative_base()
-Base.metadata.create_all(engine)
+from extensions import Base
 
 # creating the Comissions db
 class Comissions(Base):

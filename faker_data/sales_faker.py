@@ -1,18 +1,10 @@
 import random
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker 
-from sqlalchemy.ext.declarative import declarative_base
+from faker import Faker
 
+from extensions import session
 from databases.house_db import House
 from databases.sales_db import Sales
 
-from faker import Faker
-
-engine = create_engine('sqlite:///sales.db')
-Base = declarative_base() 
-
-Session = sessionmaker(bind=engine)
-session = Session()
 
 def create_sales(sales_num, house_num, buyers_num, agents_num):
     for i in range(sales_num):
@@ -28,6 +20,7 @@ def create_sales(sales_num, house_num, buyers_num, agents_num):
             "date": fake.date()
             })
         
+        # transaction
         # changing status of the sold house
         house_sold = session.query(House).filter_by(id=house_id).first()
         house_sold.sold = True

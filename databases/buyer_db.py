@@ -1,8 +1,8 @@
 from sqlalchemy import Column, Text, Integer
-from sqlalchemy.ext.declarative import declarative_base
+
+from extensions import Base
 
 
-Base = declarative_base() 
 
 # creating the Buyer db
 class Buyer(Base):

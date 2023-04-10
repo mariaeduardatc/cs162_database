@@ -1,19 +1,9 @@
 import random
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker 
-from sqlalchemy.ext.declarative import declarative_base
-
+from extensions import session
 from databases.house_db import House
-
 from faker import Faker
 
-# to create the db
-engine = create_engine('sqlite:///house.db')
-Base = declarative_base()
-Base.metadata.create_all(bind=engine)
 
-Session = sessionmaker(bind=engine)
-session = Session()
 
 def create_house(house_num, agents_num):
     for i in range(house_num):

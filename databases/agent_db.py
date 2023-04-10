@@ -1,9 +1,7 @@
 from sqlalchemy import Column, ForeignKey, Text, Integer
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
-
-Base = declarative_base() 
+from extensions import Base
 
 
 # creating the Agent db

@@ -1,7 +1,5 @@
-from sqlalchemy import desc, func
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker 
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Index, desc, func
+from extensions import session
 
 
 from databases.agent_db import Agent
@@ -10,10 +8,26 @@ from databases.house_db import House
 from databases.office_db import Office
 from databases.sales_db import Sales
 
-
+# Create an index on the date_created column of the Sales table
+# This will speed up queries that filter on this column
+Sales.__table__.indexes.add(Index('idx_sales_date_created', Sales.date_created))
 
 def top5_offices(beg_month, end_month):
+    """
+        Returns a list of the top 5 offices with the highest number of sales during the specified period.
 
+        Parameters
+        --------------
+            - beg_month (datetime.datetime): The start of the period (inclusive). Only sales with a creation date
+                greater than or equal to this value will be considered.
+            - end_month (datetime.datetime): The end of the period (inclusive). Only sales with a creation date
+                less than or equal to this value will be considered.
+
+        Returns
+        --------------
+            - list: A list of 5 tuples, each containing an Office object and the number of sales it had during the
+                specified period, sorted in descending order by the number of sales.
+    """
     top5_offices = (
         Office.query(func.count(Office.id))
         .join(Sales, Office.id == Sales.office_id)
@@ -29,6 +43,21 @@ def top5_offices(beg_month, end_month):
     return top5_offices
 
 def top5_agents(beg_month, end_month):
+    """
+        Returns a list of the top 5 agents with the highest number of sales during the specified period.
+
+        Parameters
+        --------------
+            - beg_month (datetime.datetime): The start of the period (inclusive). Only sales with a creation date
+                greater than or equal to this value will be considered.
+            - end_month (datetime.datetime): The end of the period (inclusive). Only sales with a creation date
+                less than or equal to this value will be considered.
+
+        Returns
+        --------------
+            - list: A list of 5 tuples, each containing an Agent object and the number of sales they had during the
+                specified period, sorted in descending order by the number of sales.
+    """
     top5_agents = (
         Agent.query(func.count(Agent.id))
         .join(Sales, Agent.id == Sales.agent_id)
@@ -44,7 +73,26 @@ def top5_agents(beg_month, end_month):
     return top5_agents
 
 
+# indexing, similar to the Sales case
+House.__table__.indexes.add(Index('idx_house_date_created', House.date_created))
+
+
 def avg_selling_price(beg_month, end_month):
+    """
+        Calculates the average selling price of all houses sold within a specified time period.
+
+        Parameters
+        --------------
+            - beg_month (datetime.datetime): The start of the period (inclusive). Only houses sold with a creation date
+                greater than or equal to this value will be considered.
+            - end_month (datetime.datetime): The end of the period (inclusive). Only houses sold with a creation date
+                less than or equal to this value will be considered.
+
+        Returns
+        --------------
+            - float: The average selling price of all houses sold within the specified time period, rounded to 2 decimal
+                places. If there are no houses sold within the specified time period, returns None.
+    """
     avg_selling = (
         House.query(
             func.round(func.avg(House.price), 2)
@@ -60,6 +108,22 @@ def avg_selling_price(beg_month, end_month):
     return avg_selling
 
 def avg_days_market(beg_month, end_month):
+    """
+        Calculates the average number of days that a house was on the market before being sold during the specified period.
+
+    Parameters
+    --------------
+        - beg_month (datetime.datetime): The start of the period (inclusive). Only houses with a creation date
+            greater than or equal to this value will be considered.
+        - end_month (datetime.datetime): The end of the period (inclusive). Only houses with a creation date
+            less than or equal to this value will be considered.
+
+    Returns
+    --------------
+        - list: A list containing a single tuple, containing the average number of days that a house was on the market
+            during the specified period, rounded to the nearest whole number.
+
+    """
     avg_days = (
         House.query(
             func.round(
@@ -80,7 +144,27 @@ def avg_days_market(beg_month, end_month):
     return avg_days
 
 def commission_calc(beg_month, end_month):
+    """
+        Calculates the commission for each agent based on their sales during a specified period.
 
+        Extra explanation: This function retrieves all sales made by agents within the specified period and their corresponding sale prices.
+        Then, it calculates the commission earned by each agent based on the commission rate assigned to the sale price range
+        in which the sale falls. The commission earned is stored in the Comissions table in the database, along with the
+        corresponding agent and month of the commission.
+
+        Parameters
+        --------------
+            - beg_month (datetime.datetime): The start of the period (inclusive). Only sales with a creation date
+                greater than or equal to this value will be considered.
+            - end_month (datetime.datetime): The end of the period (inclusive). Only sales with a creation date
+                less than or equal to this value will be considered.
+
+        Returns
+        --------------
+            - None
+    """
+
+    # transaction
     # Get all orders for the given month, and their corresponding agents and prices.
     sales_num = (
         session.query(Agent, House.price)
@@ -110,15 +194,5 @@ def commission_calc(beg_month, end_month):
         
         comission_db = Comissions(agent_id = sale_agent, comission = comission, month = end_month)
 
-        # to create the db
-        engine = create_engine('sqlite:///comissions.db')
-        engine.connect() 
-
-        Base = declarative_base() 
-
-        Base.metadata.create_all(bind=engine) 
-
-        Session = sessionmaker(bind=engine)
-        session = Session()
         session.add(comission_db)
         session.commit()

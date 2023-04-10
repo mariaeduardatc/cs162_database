@@ -1,18 +1,7 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker 
-from sqlalchemy.ext.declarative import declarative_base
-
+from extensions import session
 from databases.office_db import Office
-
 from faker import Faker
 
-
-engine = create_engine('sqlite:///office.db')
-Base = declarative_base() 
-Base.metadata.create_all(bind=engine)
-
-Session = sessionmaker(bind=engine)
-session = Session()
 
 def create_office(office_num):
 
