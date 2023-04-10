@@ -11,7 +11,7 @@ class Comissions(Base):
     comission = Column(Float)
     month = Column(DateTime)
 
-    agents = relationship('Agent', back_populates='comissions')
+    agent = relationship('Agent', back_populates='comissions')
 
     def __repr__(self):
         return "<Comissions(id={0}, agent_id={1}, comission={2}, month={3})>".format(self.id, self.agent_id, self.comission, self.month)

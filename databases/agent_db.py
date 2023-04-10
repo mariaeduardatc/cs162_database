@@ -13,7 +13,7 @@ class Agent(Base):
 	sales = Column(Integer)
 	office_id = Column(Integer, ForeignKey('office.id'))
 
-	offices = relationship('Office', back_populates='agent')
+	offices = relationship('Office', back_populates='agents')
 	comissions = relationship('Comissions', back_populates='agent')
 
 

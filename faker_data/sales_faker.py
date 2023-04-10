@@ -24,7 +24,6 @@ def create_sales(sales_num, house_num, buyers_num, agents_num):
         # changing status of the sold house
         house_sold = session.query(House).filter_by(id=house_id).first()
         house_sold.sold = True
-        session.commit()
         
         session.add(sales)
     session.commit()

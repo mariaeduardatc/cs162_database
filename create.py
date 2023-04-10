@@ -6,4 +6,8 @@ from databases.office_db import Office
 from databases.sales_db import Sales
 from databases.seller_db import Seller
 
-Base.metadata.create_all(Agent, Buyer, House, Office, Sales, Seller)
+from extensions import engine
+
+
+
+Base.metadata.create_all(bind=engine) 
