@@ -10,7 +10,7 @@ from databases.sales_db import Sales
 
 # Create an index on the date_created column of the Sales table
 # This will speed up queries that filter on this column
-Sales.__table__.indexes.add(Index('idx_sales_date_created', Sales.date_created))
+Sales.__table__.indexes.add(Index('idx_sales_date_created', Sales.date_sold))
 
 def top5_offices(beg_month, end_month):
     """
@@ -28,12 +28,14 @@ def top5_offices(beg_month, end_month):
             - list: A list of 5 tuples, each containing an Office object and the number of sales it had during the
                 specified period, sorted in descending order by the number of sales.
     """
+
     top5_offices = (
-        Office.query(func.count(Office.id))
-        .join(Sales, Office.id == Sales.office_id)
+        session.query(Sales.id, Office.name, func.count(Office.id))
+        .join(Agent, Sales.agent_id == Agent.id)
+        .join(Office, Agent.office_id == Office.id)
         .filter(
-            Sales.date_created >= beg_month,
-            Sales.date_created <= end_month,
+            Sales.date_sold >= beg_month,
+            Sales.date_sold <= end_month,
         )
         .group_by(Office.id)
         .order_by(desc(func.count(Office.id)))
@@ -59,11 +61,11 @@ def top5_agents(beg_month, end_month):
                 specified period, sorted in descending order by the number of sales.
     """
     top5_agents = (
-        Agent.query(func.count(Agent.id))
+        session.query(Agent.name, func.count(Agent.id))
         .join(Sales, Agent.id == Sales.agent_id)
         .filter(
-            Sales.date_created >= beg_month,
-            Sales.date_created <= end_month,
+            Sales.date_sold >= beg_month,
+            Sales.date_sold <= end_month,
         )
         .group_by(Agent.id)
         .order_by(desc(func.count(Agent.id)))
@@ -74,7 +76,7 @@ def top5_agents(beg_month, end_month):
 
 
 # indexing, similar to the Sales case
-House.__table__.indexes.add(Index('idx_house_date_created', House.date_created))
+House.__table__.indexes.add(Index('idx_house_date_created', House.date_listing))
 
 
 def avg_selling_price(beg_month, end_month):
@@ -94,13 +96,13 @@ def avg_selling_price(beg_month, end_month):
                 places. If there are no houses sold within the specified time period, returns None.
     """
     avg_selling = (
-        House.query(
+        session.query(
             func.round(func.avg(House.price), 2)
         )
         .filter(
             House.sold == True,
-            House.date_created >= beg_month,
-            House.date_created <= end_month
+            House.date_listing >= beg_month,
+            House.date_listing <= end_month
         )
         .limit(1)
         .all()
@@ -125,18 +127,19 @@ def avg_days_market(beg_month, end_month):
 
     """
     avg_days = (
-        House.query(
+        session.query(
             func.round(
                 func.avg(
-                    func.julianday(House.date_sold)
-                    - func.julianday(House.date_created)
+                    func.julianday(Sales.date_sold)
+                    - func.julianday(Sales.date_listing)
                 )
             )
         )
+        .join(House,Sales.house_id == House.id )
         .filter(
             House.sold == True,
-            House.date_created >= beg_month,
-            House.date_created <= end_month
+            House.date_listing >= beg_month,
+            House.date_listing <= end_month
         )
         .limit(1)
         .all()
@@ -169,14 +172,15 @@ def commission_calc(beg_month, end_month):
     sales_num = (
         session.query(Agent, House.price)
         .join(Sales, Agent.id == Sales.agent_id)
-        .join(House, Sales.listing_id == House.id)
+        .join(House, Sales.house_id == House.id)
         .filter(
-            Sales.date_created >= beg_month,
-            Sales.date_created <= end_month,
+            Sales.date_sold >= beg_month,
+            Sales.date_sold <= end_month,
         )
         .order_by(Agent.id)
         .all()
     )
+    
     for sale in sales_num:
         sale_price = sale[1]
         sale_agent = sale[0]
@@ -192,7 +196,7 @@ def commission_calc(beg_month, end_month):
         else:
             comission = sale_price*0.04
         
-        comission_db = Comissions(agent_id = sale_agent, comission = comission, month = end_month)
+        comission_db = Comissions(agent_id = sale_agent.id, comission = comission, month = end_month)
 
         session.add(comission_db)
         session.commit()

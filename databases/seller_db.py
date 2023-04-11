@@ -10,7 +10,7 @@ class Seller(Base):
 	name = Column(Text)
 	phone = Column(Text)
 
-	houses = relationship('House', back_populates='seller')
+	# houses = relationship('House', backref='post')
 
 	def __repr__(self):
 		return "<Seller(id={0}, name={1}, phone={2})>".format(self.id, self.name, self.phone)

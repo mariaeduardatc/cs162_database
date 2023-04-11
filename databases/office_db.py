@@ -11,8 +11,7 @@ class Office(Base):
 	name = Column(Text)
 	phone = Column(Text)
 	sales_num = Column(Integer)
-
-	agents = relationship('Agent', back_populates='office')
+	agents = relationship('Agent', backref='post')
 
 
 	def __repr__(self):

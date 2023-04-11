@@ -1,6 +1,5 @@
 from sqlalchemy import Column, ForeignKey, Text, Integer
 from sqlalchemy.orm import relationship
-
 from extensions import Base
 
 
@@ -12,9 +11,7 @@ class Agent(Base):
 	email = Column(Text)
 	sales = Column(Integer)
 	office_id = Column(Integer, ForeignKey('office.id'))
-
-	offices = relationship('Office', back_populates='agents')
-	comissions = relationship('Comissions', back_populates='agent')
+	comissions = relationship('Comissions', backref='post')
 
 
 	def __repr__(self):

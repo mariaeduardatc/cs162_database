@@ -16,8 +16,6 @@ class House(Base):
     sold = Column(Boolean)
     seller_id = Column(Integer, ForeignKey('seller.id'))
 
-    sellers = relationship('Seller', back_populates='house')
-
     
     def __repr__(self):
         return "<House(id={0}, bedrooms={1}, bathrooms={2}, price={3}, zipcode={4}, date_listing={5}, sold={6}, seller_id={7})>".format(self.id, self.bedrooms, self.bathrooms, self.price, self.zipcode, self.date_listing, self.sold, self.seller_id)

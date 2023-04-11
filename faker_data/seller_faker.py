@@ -9,7 +9,7 @@ def create_seller(seller_num):
         fake = Faker()
         seller = Seller(**{
             "name": fake.name(),
-            "email": fake.email()
+            "phone": fake.phone_number()
         })
         
         session.add(seller)
