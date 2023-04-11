@@ -28,3 +28,10 @@ To run the test, do:
 ```
 python3 -m unittest discover tests
 ```
+
+
+###Usage of AI tools
+I used ChatGPT to help me understand errors and debug the code.
+
+### HC Appendix
+"#variables": When I was building my database tables in SQLAlchemy, it was crucial to take into account the types of variables and their connections. I had to specify the data type for each column, such as integer, text, boolean, or date. Additionally, I had to consider the relationships between the variables to ensure that the database satisfied the second normal form and when writing foreign key relationships. The primary keys were designated as independent variables that all other variables in the same table depended on, while foreign keys represented dependencies across different tables.
