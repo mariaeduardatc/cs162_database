@@ -9,8 +9,28 @@ from extensions import Base
 from tests.tests_extensions import session, engine
 
 class TestSales(unittest.TestCase):
-    
+    """
+        A unittest class for testing the Sales model.
+
+    Methods
+    ----------
+        setUp():
+            Drops all tables, creates tables, and rolls back the session.
+        tearDown():
+            Roll back the session.
+        test_sales_create():
+            Test creating a Sales instance and verify that the values are correct.
+        test_sales_representation():
+            Test the string representation of a Sales instance.
+
+    Attributes
+    ------------
+        N/A
+    """
     def setUp(self):
+        """
+            Set up the test environment. Creates an office, agent, buyer and a house to properly test the sales db.
+        """
         self.tearDown()
         Base.metadata.create_all(bind=engine)
 
@@ -31,9 +51,15 @@ class TestSales(unittest.TestCase):
         session.commit()
 
     def tearDown(self):
+        """
+            Rollback the current session.
+        """
         session.rollback()
 
     def test_sales_create(self):
+        """
+            Test the creation of a `Sales` object.
+        """
         
         sales = Sales(house_id=self.house.id, buyer_id=self.buyer.id, agent_id=self.agent.id, price=self.house.price, date_listing=date.today(), date_sold=date.today(), office_id=self.office.id)
         session.add(sales)
@@ -49,6 +75,9 @@ class TestSales(unittest.TestCase):
         self.assertEqual(sales.office_id, self.office.id)
 
     def test_sales_represantation(self):
+        """
+            Test the string representation of a `Sales` object.
+        """
         sales = Sales(house_id=self.house.id, buyer_id=self.buyer.id, agent_id=self.agent.id, price=self.house.price, date_listing=date.today(), date_sold=date.today(), office_id=self.office.id)
 
         self.assertEqual(str(sales), "<Sales(id=None, house_id={}, buyer_id={}, agent_id={}, price={}, date_listing={}, date_sold={}, office_id={})>".format(self.house.id, self.buyer.id, self.agent.id, self.house.price, date.today().strftime('%Y-%m-%d'), date.today().strftime('%Y-%m-%d'), self.office.id))

@@ -7,6 +7,18 @@ from faker import Faker
 
 
 def create_house(house_num, agents_num):
+    """
+        Creates a specified number of House instances with randomized data and saves them to the database.
+
+    Parameters
+    ----------
+        - house_num (int): The number of houses to create.
+        - agents_num (int): The total number of agents available for assigning a seller to each house.
+
+    Returns
+    -------
+        None
+    """
     for i in range(house_num):
         fake = Faker()
         house = House(**{

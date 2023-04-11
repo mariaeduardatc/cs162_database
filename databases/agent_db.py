@@ -6,6 +6,24 @@ from databases.comissions_db import Comissions
 
 # creating the Agent db
 class Agent(Base):
+	"""
+		Represents a real estate agent in the database.
+
+	Attributes
+	----------------
+		- id (int): The unique identifier for the agent.
+		- name (str): The name of the agent.
+		- email (str): The email address of the agent.
+		- sales (int): The number of sales made by the agent.
+		- office_id (int): The ID of the office where the agent works.
+		- comissions (list of Comissions): A list of comissions earned by the agent.
+
+	Methods
+        -----------
+        __repr__()
+            Returns a string representation of the instance.
+
+	"""
 	__tablename__ = 'agent'
 	id = Column(Integer, primary_key = True)
 	name = Column(Text)

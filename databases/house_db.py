@@ -6,6 +6,24 @@ from extensions import Base
 
 # creating the House db
 class House(Base):
+    """
+        Represents the House (listings) table in the database.
+    Attributes
+    --------------
+        - id (int): The primary key of the table.
+        - bedrooms (int): The number of bedrooms in the house.
+        - bathrooms (int): The number of bathrooms in the house.
+        - price (int): The price of the house.
+        - zipcode (int): The zipcode of the house.
+        - date_listing (datetime.date): The date on which the house was listed.
+        - sold (bool): A flag indicating whether the house is sold or not.
+        - seller_id (int): The foreign key referencing the id of a seller in the sellers table.
+
+    Methods
+    -----------
+        __repr__()
+            Returns a string representation of the instance.
+    """
     __tablename__ = 'house'
     id = Column(Integer, primary_key=True)
     bedrooms = Column(Integer)

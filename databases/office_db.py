@@ -6,6 +6,22 @@ from extensions import Base
 
 # creating the Agent db
 class Office(Base):
+	"""
+	    Represents the office table in the database.
+
+    Attributes
+    --------------
+		- id (int): The primary key of the table.
+		- name (str): The name of the office.
+		- phone (str): The phone number of the office.
+		- sales_num (int): The number of sales associated with this office.
+		- agents (relationship): The agents associated with this office.
+
+    Methods
+    -----------
+		__repr__()
+			Returns a string representation of the instance.
+	"""
 	__tablename__ = 'office'
 	id = Column(Integer, primary_key = True)
 	name = Column(Text)

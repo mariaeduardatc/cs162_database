@@ -7,6 +7,21 @@ from databases.house_db import House
 from databases.sales_db import Sales
 
 def create_sales(sales_num, house_num, buyers_num, agents_num):
+    """
+        Creates a specified number of Sales instances with randomized data and saves them to the database.
+        Also, changes the status of the sold house.
+    
+    Parameters
+    ----------
+        - sales_num (int) : The number of sales to create.
+        - house_num (int) : The number of houses available for selling.
+        - buyers_num (int) : The number of buyers available for making purchases.
+        - agents_num (int) : The number of agents available for handling sales.
+
+    Returns
+    -------
+        None
+    """
     for i in range(sales_num):
         fake = Faker()
         

@@ -15,7 +15,7 @@ end_month = (
     last_day + timedelta(days=1) - timedelta(seconds=1)
 )
 
-# calling quey functions
+# calling query functions
 print(top5_offices(beg_month, end_month))
 print(top5_agents(beg_month, end_month))
 print(avg_selling_price(beg_month, end_month))

@@ -11,6 +11,6 @@ from databases.agent_db import Agent
 from extensions import engine
 
 
-
+# drop all existing tables and create new tables 
 Base.metadata.drop_all(bind=engine) 
 Base.metadata.create_all(bind=engine) 

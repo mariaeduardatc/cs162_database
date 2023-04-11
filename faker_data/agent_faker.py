@@ -4,6 +4,18 @@ from faker import Faker
 import random
 
 def create_agent(agents_num, office_num):
+    """
+        Creates a specified number of Agent instances with randomized data and saves them to the database.
+
+    Parameters
+    -----------
+        - agents_num (int): The number of agents to create.
+        - office_num (int): The total number of offices available for assigning an office to each agent.
+
+    Returns
+    ---------
+        None
+    """
     for _ in range(agents_num):
         fake = Faker()
         agent = Agent(**{
