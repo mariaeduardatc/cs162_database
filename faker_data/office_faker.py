@@ -16,6 +16,7 @@ def create_office(office_num):
     -------
         None
     """
+    # data normalization -> columns are directly connected to the id
     for i in range(office_num):
         fake = Faker()
         office = Office(**{
