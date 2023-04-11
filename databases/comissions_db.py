@@ -21,6 +21,7 @@ class Comissions(Base):
         __repr__()
             Returns a string representation of the instance.
     """
+    # data normalization -> columns are directly connected to the id
     __tablename__ = 'comissions'
     id = Column(Integer, primary_key=True)
     agent_id = Column(Integer, ForeignKey('agent.id'))

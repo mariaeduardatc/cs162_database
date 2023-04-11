@@ -16,7 +16,7 @@ def create_agent(agents_num, office_num):
     ---------
         None
     """
-    # data normalization -> columns are directly connected to the id
+    
     for _ in range(agents_num):
         fake = Faker()
         agent = Agent(**{

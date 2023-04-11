@@ -22,7 +22,6 @@ def create_sales(sales_num, house_num, buyers_num, agents_num):
     -------
         None
     """
-    # data normalization -> columns are directly connected to the id
     for i in range(sales_num):
         fake = Faker()
         

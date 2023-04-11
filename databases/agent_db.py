@@ -24,6 +24,7 @@ class Agent(Base):
             Returns a string representation of the instance.
 
 	"""
+	# data normalization -> columns are directly connected to the id
 	__tablename__ = 'agent'
 	id = Column(Integer, primary_key = True)
 	name = Column(Text)

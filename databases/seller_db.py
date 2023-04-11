@@ -18,9 +18,8 @@ class Seller(Base):
 	-----------
         __repr__()
             Returns a string representation of the instance.
-    ```
-
 	"""
+	# data normalization -> columns are directly connected to the id
 	__tablename__ = 'seller'
 	id = Column(Integer, primary_key = True)
 	name = Column(Text)

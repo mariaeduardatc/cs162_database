@@ -19,7 +19,7 @@ def create_house(house_num, agents_num):
     -------
         None
     """
-    # data normalization -> columns are directly connected to the id
+
     for i in range(house_num):
         fake = Faker()
         house = House(**{

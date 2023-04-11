@@ -16,7 +16,6 @@ def create_seller(seller_num):
     -------
         None
     """
-    # data normalization -> columns are directly connected to the id
     for i in range(seller_num):
         fake = Faker()
         seller = Seller(**{
