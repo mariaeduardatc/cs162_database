@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 
 from extensions import Base
 
+
 # creating the Comissions db
 class Comissions(Base):
     __tablename__ = 'comissions'

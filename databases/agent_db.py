@@ -2,6 +2,7 @@ from sqlalchemy import Column, ForeignKey, Text, Integer
 from sqlalchemy.orm import relationship
 from extensions import Base
 
+from databases.comissions_db import Comissions
 
 # creating the Agent db
 class Agent(Base):
