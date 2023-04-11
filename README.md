@@ -30,7 +30,7 @@ python3 -m unittest discover tests
 ```
 
 
-###Usage of AI tools
+### Usage of AI tools
 I used ChatGPT to help me understand errors and debug the code.
 
 ### HC Appendix
