@@ -1,5 +1,6 @@
 # cs162_database
 
+GitHub: https://github.com/mariaeduardatc/cs162_database
 
 ### Project Structure
 `/databases` contains the DB models
